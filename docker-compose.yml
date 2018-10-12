@@ -1,0 +1,22 @@
+version: "3"
+services:
+
+  scuwyz:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: scuwyz
+    volumes:
+      - ./:/app
+    restart: always
+    ports:
+      - "5001:80"
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+
+
+
+
