@@ -1,6 +1,6 @@
 import logging
-from flask import Flask, url_for, request, send_from_directory, Response, send_file
-from check import spider, login, parse
+from flask import Flask, request, send_file
+from check import login, parse
 import arrow
 import requests
 
@@ -15,9 +15,6 @@ def index():
     real_ip = request.headers.getlist("X-Forwarded-For")
     log = f"{request.url} / {arrow.now().format('YYYYMMDD-HH:mm:ss')} {str(real_ip)}"
     logging.info(log)
-    # print(real_ip)
-    # print(log)
-    # logging.info(request.remote_addr)
     if request.method == 'POST':
         stuid = request.form['stuid']
         passwd = request.form['passwd']

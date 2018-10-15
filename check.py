@@ -23,7 +23,6 @@ def login(session, stuid, passwd):
         # exit(1)
 
 
-
 def parse(session, stuid, out_file_name):
     new = session.get("http://zhjw.scu.edu.cn/student/integratedQuery/scoreQuery/coursePropertyScores/callback")
     j = json.loads(new.text)
@@ -50,13 +49,18 @@ def parse(session, stuid, out_file_name):
 
         dic.update({cjlx: courses})
 
-
     source = pd.DataFrame()
     for lx in dic:
         df = pd.DataFrame(dic[lx], columns=["课程名", '课程属性', '课程号', '学分'])
         source = pd.concat([source, df])
-    # source.to_excel("{}.xlsx".format(stuid))
-    source.to_excel(out_file_name)
+
+    # 重设数据类型
+    source['课程号'] = source['课程号'].astype("str")
+
+    # 添加新行
+    source.loc[len(source)] = ['修读课程总数', len(source), '修读课程总分', source['学分'].sum()]
+
+    source.to_excel(out_file_name, index=False)
 
     return out_file_name
 
@@ -64,7 +68,8 @@ def parse(session, stuid, out_file_name):
 def spider(stuid, passwd):
     session = requests.Session()
     session = login(session, stuid, passwd)
-    parse(session, stuid)
+    parse(session, stuid, out_file_name="test.xls")
+
 
 if __name__ == "__main__":
 
