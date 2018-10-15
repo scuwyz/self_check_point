@@ -55,7 +55,8 @@ def parse(session, stuid, out_file_name):
         source = pd.concat([source, df])
 
     # 重设数据类型
-    source['课程号'] = source['课程号'].astype("str")
+    # source['课程号'] = source['课程号'].astype("str")
+    source['学分'] = source['学分'].astype(float)
 
     # 添加新行
     source.loc[len(source)] = ['修读课程总数', len(source), '修读课程总分', source['学分'].sum()]
