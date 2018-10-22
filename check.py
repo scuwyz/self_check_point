@@ -25,7 +25,10 @@ def login(session, stuid, passwd):
 
 def parse(session, stuid, out_file_name):
     new = session.get("http://zhjw.scu.edu.cn/student/integratedQuery/scoreQuery/coursePropertyScores/callback")
-    j = json.loads(new.text)
+    try:
+        j = json.loads(new.text)
+    except:
+        return False, " null"
     # with open("ex.json", 'w', encoding="utf8") as f:
     #     f.write(json.dumps(j, ensure_ascii=False, indent=2))
 
@@ -63,7 +66,7 @@ def parse(session, stuid, out_file_name):
 
     source.to_excel(out_file_name, index=False)
 
-    return out_file_name
+    return True, out_file_name
 
 
 def spider(stuid, passwd):
