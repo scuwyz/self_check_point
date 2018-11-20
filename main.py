@@ -20,7 +20,7 @@ def index():
         passwd = request.form['passwd']
         log += stuid
         # print("{} {}".format(stuid, passwd))
-        if len(stuid) == 13 and stuid[:4] == '2015' and len(passwd) < 20:
+        if len(stuid) == 13 and stuid[:2] == '20' and len(passwd) < 20:
             try:
                 session = requests.Session()
                 status, session = login(session, stuid, passwd)
