@@ -30,8 +30,8 @@ def index():
                                                                 arrow.now("Asia/Shanghai").format("YYYYMMDD-HHmmss"))
                     status, out_file_name = parse(session, stuid, out_file_name)
                     if not status:
-                        logging.error("教务处欠费或者出现其他问题")
-                        return "教务处欠费 :(  或者出现其他问题"
+                        logging.error("教务处欠费或未评教，或者出现其他未知问题")
+                        return "教务处欠费或未评教，或者出现其他未知问题，如果问题持续，请戳Les1ie"
                     log += out_file_name
                     logging.info(log)
                     return send_file(out_file_name, as_attachment=True)
