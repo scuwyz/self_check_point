@@ -5,11 +5,10 @@ import pandas as pd
 
 
 def login(session, stuid, passwd):
-    login_url = "http://zhjw.scu.edu.cn/j_spring_security_check"
+    login_url = "http://zhjw.scu.edu.cn/login/j_spring_security_check"
     payload = {
         "j_username": stuid,
         "j_password": passwd,
-        "j_captcha1": "error"
     }
     # print(payload)
     r = session.post(login_url, data=payload)
